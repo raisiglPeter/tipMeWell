@@ -7,16 +7,21 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import RNPickerSelect from "react-native-picker-select";
+import PercentagePicker from "./components/PercentagePicker";
 
 export default function App() {
   const [price, setPrice] = useState(0);
   const [percentage, setPercentage] = useState(0);
-  const [selectedValue, setSelectedValue] = useState(10);
+
+  const resetEverything = () => {
+    setPercentage("10");
+    setPrice(0);
+  };
 
   return (
     <View style={styles.screen}>
       <Text style={styles.title}>TipMeWell</Text>
+      {/* ///////////////////////////////////////////////////////////////////////////////  */}
       <Text style={styles.smallTitle}>Price</Text>
       <View style={styles.priceInput}>
         <TextInput
@@ -24,32 +29,12 @@ export default function App() {
           onChangeText={setPrice}
         ></TextInput>
       </View>
+      {/* ///////////////////////////////////////////////////////////////////////////////  */}
       <Text style={styles.smallTitle}>Percentage</Text>
       <View style={styles.percentageInput}>
-        <RNPickerSelect
-          placeholder={{
-            label: "Select Percentage",
-            value: null,
-          }}
-          onValueChange={(value) => {
-            setPercentage(value);
-          }}
-          items={[
-            { label: "10", value: "10" },
-            { label: "15", value: "15" },
-            { label: "18", value: "18" },
-            { label: "20", value: "20" },
-            { label: "22", value: "22" },
-            { label: "25", value: "25" },
-            { label: "26", value: "26" },
-            { label: "27", value: "27" },
-            { label: "28", value: "28" },
-            { label: "29", value: "29" },
-            { label: "30", value: "30" },
-          ]}
-          value={selectedValue}
-        ></RNPickerSelect>
+        <PercentagePicker value={"10"} onSet={setPercentage} />
       </View>
+      {/* ///////////////////////////////////////////////////////////////////////////////  */}
       <Text style={styles.smallTitle}>Total</Text>
       <View style={styles.percentageOutput}>
         <TouchableOpacity style={styles.result}>
@@ -58,7 +43,7 @@ export default function App() {
           </Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.reset}>
+      <TouchableOpacity style={styles.reset} onPress={resetEverything}>
         <Text>RESET</Text>
       </TouchableOpacity>
 
